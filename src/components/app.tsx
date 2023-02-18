@@ -1,23 +1,36 @@
-import { h } from 'preact';
-import { Route, Router } from 'preact-router';
+import { h } from "preact";
 
-import Header from './header';
+import Header from "./header";
+import ItemTable from "../components/item-table";
+import { tarkovClient } from "../services/tarkov-api";
 
-// Code-splitting is automated for `routes` directory
-import Home from '../routes/home';
-import Profile from '../routes/profile';
+import { ApolloProvider } from "@apollo/client";
+import { useState } from "preact/hooks";
 
-const App = () => (
-	<div id="app">
-		<Header />
-		<main>
-			<Router>
-				<Route path="/" component={Home} />
-				<Route path="/profile/" component={Profile} user="me" />
-				<Route path="/profile/:user" component={Profile} />
-			</Router>
-		</main>
-	</div>
-);
+export const App = () => {
+  const [rubToUsd, setRubToUsd] = useState<number | null>(null);
+  return (
+    <ApolloProvider client={tarkovClient}>
+      <div id="app">
+        <Header />
+        <main>
+          {/* TODO: Move this to a component */}
+          {/* TODO: Maybe use local storage to persist this value */}
+          {/* TODO: Investigate if there is a way to get precise/realtime price of USD */}
+          <div>
+            <span>Override USD price:</span>
+            <input
+              type="number"
+              value={rubToUsd}
+              onChange={(e) => setRubToUsd(Number(e.currentTarget.value))}
+            />
+          </div>
+          <ItemTable overrideRubToUsd={rubToUsd} />
+        </main>
+        {/* TODO: Add footer with link to tarkov.dev */}
+      </div>
+    </ApolloProvider>
+  );
+};
 
 export default App;

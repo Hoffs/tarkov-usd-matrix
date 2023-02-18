@@ -8,7 +8,9 @@
     "serve": "sirv build --cors --single",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "gql-compile": "graphql-codegen",
+    "gql-watch": "graphql-codegen -w"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -21,6 +23,12 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.7.8",
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/client-preset": "^2.0.0",
+    "@tanstack/react-table": "^8.7.9",
+    "@types/react-table": "^7.7.14",
+    "graphql": "^16.6.0",
     "preact": "^10.10.0",
     "preact-render-to-string": "^5.2.1",
     "preact-router": "^3.2.1"
@@ -30,6 +38,7 @@
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^4.0.1",
     "eslint": "^8.20.0",
@@ -37,9 +46,9 @@
     "jest": "^27.5.1",
     "jest-preset-preact": "^4.0.5",
     "preact-cli": "^3.4.0",
+    "prettier": "2.8.4",
     "sirv-cli": "^2.0.2",
-    "typescript": "^4.5.2",
-    "cross-env": "^7.0.3"
+    "typescript": "^4.5.2"
   },
   "jest": {
     "preset": "jest-preset-preact",

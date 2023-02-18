@@ -17,3 +17,7 @@
   your tests
 
 For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+
+- `npm run gql-compile`: GQL codegen compile
+
+- `npm run gql-watch`: GQL codegen watch
