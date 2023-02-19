@@ -14,8 +14,10 @@ type ItemPriceProfit = {
   itemName: string;
   sellPriceUsd: number;
   fleaPriceRub: number;
+  fleaPriceRubAvg: number;
   sellPriceRub: number;
   profit: number;
+  profitAvg: number;
 };
 
 const VendorIsPeacekeeper = (data: { vendor: { name: string } }) =>
@@ -29,7 +31,10 @@ const columns = [
     cell: (v) => <i>{v.getValue()}</i>,
   }),
   columnHelper.accessor("fleaPriceRub", {
-    header: () => <span>Flea Price RUB</span>,
+    header: () => <span>Flea price RUB</span>,
+  }),
+  columnHelper.accessor("fleaPriceRubAvg", {
+    header: () => <span>Flea price average RUB</span>,
   }),
   columnHelper.accessor("sellPriceUsd", {
     header: () => <span>Sell for USD</span>,
@@ -39,6 +44,9 @@ const columns = [
   }),
   columnHelper.accessor("profit", {
     header: () => <span>Profit</span>,
+  }),
+  columnHelper.accessor("profitAvg", {
+    header: () => <span>Profit average</span>,
   }),
 ];
 
@@ -62,8 +70,10 @@ const ItemTable = ({
           itemName: i.name,
           sellPriceUsd: usdPrice,
           fleaPriceRub: i.lastLowPrice || 0,
-          sellPriceRub: rubToUsd * usdPrice,
+          fleaPriceRubAvg: i.avg24hPrice || 0,
+          sellPriceRub: sellPrice,
           profit: sellPrice - fleaPrice,
+          profitAvg: sellPrice - (i.avg24hPrice || 0),
         };
       })
       .sort((a, b) => b.profit - a.profit);
